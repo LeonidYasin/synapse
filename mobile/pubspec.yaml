@@ -1,10 +1,10 @@
 name: synapse
-description: A new Flutter project for Synapse
+description: Социальная сеть на основе ИИ-чатов
 version: 0.1.0+1
 publish_to: none
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -12,7 +12,9 @@ dependencies:
   provider: ^6.1.1
   dio: ^5.4.0
   shared_preferences: ^2.2.2
+  go_router: ^13.0.0
   google_fonts: ^6.1.0
+  flutter_secure_storage: ^9.0.0
   flutter_dotenv: ^5.1.0
 
 dev_dependencies:
@@ -23,4 +25,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/icons/
+    - assets/images/
     - .env
