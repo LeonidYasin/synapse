@@ -1,1 +1,1 @@
-Trigger mobile build at $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+Trigger mobile build after pubspec fix at 2026-06-29 08:17:00 UTC
