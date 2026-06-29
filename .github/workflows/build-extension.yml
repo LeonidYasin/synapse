@@ -1,0 +1,78 @@
+name: Build and Package Synapse Extension
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'synapse-extension/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Prepare extension directory
+        run: |
+          mkdir -p synapse-extension-build
+          cp -r synapse-extension/* synapse-extension-build/
+          # Создаём папку icons если её нет
+          mkdir -p synapse-extension-build/icons
+          # Генерируем простые иконки (заглушки) если их нет
+          if [ ! -f synapse-extension-build/icons/icon16.png ]; then
+            echo "Creating placeholder icons..."
+            # Создаём простые SVG как PNG не получится, но для сборки это не критично
+            # Просто создаём пустые файлы-заглушки (расширение будет работать без них)
+            touch synapse-extension-build/icons/icon16.png
+            touch synapse-extension-build/icons/icon48.png
+            touch synapse-extension-build/icons/icon128.png
+          fi
+      
+      - name: Create ZIP archive
+        run: |
+          cd synapse-extension-build
+          zip -r ../synapse-extension.zip .
+          cd ..
+      
+      - name: Upload artifact (ZIP)
+        uses: actions/upload-artifact@v4
+        with:
+          name: synapse-extension
+          path: synapse-extension.zip
+      
+      - name: Get version from manifest
+        id: get_version
+        run: |
+          VERSION=$(grep -o '"version": "[^"]*"' synapse-extension/manifest.json | cut -d'"' -f4)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/heads/main')
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: Synapse Extension v${{ steps.get_version.outputs.version }}
+          body: |
+            ## Synapse Extension v${{ steps.get_version.outputs.version }}
+            
+            Автоматическая сборка расширения.
+            
+            ### Установка
+            1. Скачай `synapse-extension.zip`
+            2. Распакуй архив
+            3. Открой `chrome://extensions/`
+            4. Включи "Режим разработчика"
+            5. Нажми "Загрузить распакованное расширение"
+            6. Выбери папку с распакованным расширением
+            
+            ### Что нового
+            - Автоматическая сборка через GitHub Actions
+          files:
+            - synapse-extension.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
