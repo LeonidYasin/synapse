@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Synapse — связи через диалоги",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Анализирует диалоги с ИИ и находит связи между людьми по интересам и потребностям",
   "permissions": [
     "activeTab",
