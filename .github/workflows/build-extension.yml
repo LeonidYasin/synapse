@@ -20,13 +20,9 @@ jobs:
         run: |
           mkdir -p synapse-extension-build
           cp -r synapse-extension/* synapse-extension-build/
-          # Создаём папку icons если её нет
           mkdir -p synapse-extension-build/icons
-          # Генерируем простые иконки (заглушки) если их нет
           if [ ! -f synapse-extension-build/icons/icon16.png ]; then
             echo "Creating placeholder icons..."
-            # Создаём простые SVG как PNG не получится, но для сборки это не критично
-            # Просто создаём пустые файлы-заглушки (расширение будет работать без них)
             touch synapse-extension-build/icons/icon16.png
             touch synapse-extension-build/icons/icon48.png
             touch synapse-extension-build/icons/icon128.png
@@ -72,7 +68,6 @@ jobs:
             
             ### Что нового
             - Автоматическая сборка через GitHub Actions
-          files:
-            - synapse-extension.zip
+          files: synapse-extension.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
