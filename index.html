@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synapse — социальная сеть на основе ИИ-чатов</title>
+    <link rel="stylesheet" href="frontend/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="logo">
+                    <span class="logo__icon">🧠</span>
+                    <span class="logo__text">Synapse</span>
+                    <span class="logo__badge">Beta</span>
+                </div>
+                <div class="header__actions">
+                    <div id="authInfo">
+                        <span id="userStatus" class="user-status">Гость</span>
+                        <button id="authBtn" class="btn btn--primary">Войти</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+
+            <section id="onboarding" class="onboarding">
+                <div class="onboarding__content">
+                    <h1 class="onboarding__title">Общайся с ИИ. Находи людей.</h1>
+                    <p class="onboarding__subtitle">
+                        Synapse — это чат с любыми LLM, где ИИ-агент анализирует диалоги<br>
+                        и связывает вас с людьми по интересам, потребностям и возможностям.
+                    </p>
+                    <div class="onboarding__features">
+                        <div class="feature">
+                            <span class="feature__icon">💬</span>
+                            <span class="feature__text">Чат с любыми моделями</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature__icon">🔍</span>
+                            <span class="feature__text">Агент анализирует диалоги</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature__icon">🔗</span>
+                            <span class="feature__text">Находит связи между людьми</span>
+                        </div>
+                    </div>
+                    <button id="startBtn" class="btn btn--large btn--primary">Начать общение</button>
+                </div>
+            </section>
+
+            <section id="dashboard" class="dashboard" style="display:none;">
+                <div class="dashboard__grid">
+                    <div class="dashboard__chat">
+                        <div class="chat-panel">
+                            <div class="chat-panel__header">
+                                <span class="chat-panel__model">🧠 Claude 3.5 Sonnet</span>
+                                <select id="modelSelect" class="model-select">
+                                    <option value="claude">Claude 3.5 Sonnet</option>
+                                    <option value="gpt">GPT-4o</option>
+                                    <option value="deepseek">DeepSeek V3</option>
+                                    <option value="local">Локальная модель</option>
+                                </select>
+                            </div>
+                            <div class="chat-panel__messages" id="chatMessages">
+                                <div class="message message--system">
+                                    <span class="message__text">👋 Добро пожаловать в Synapse! Расскажите о своих интересах, идеях или потребностях — агент поможет найти нужных людей.</span>
+                                </div>
+                            </div>
+                            <div class="chat-panel__input">
+                                <textarea id="chatInput" rows="2" placeholder="Напишите сообщение..." class="chat-input"></textarea>
+                                <button id="sendBtn" class="btn btn--primary">➤</button>
+                            </div>
+                            <div class="chat-panel__privacy">
+                                <label>
+                                    <input type="checkbox" id="privacyToggle" checked>
+                                    Разрешить агенту анализировать диалог для поиска связей
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard__sidebar">
+                        <div class="sidebar-card profile-card" id="profileCard">
+                            <div class="profile-card__avatar">👤</div>
+                            <div class="profile-card__name" id="userName">Участник</div>
+                            <div class="profile-card__tags" id="userTags">
+                                <span class="tag">💡 Идеи</span>
+                                <span class="tag">🔗 Связи</span>
+                            </div>
+                            <div class="profile-card__stats">
+                                <span>📊 0 идей</span>
+                                <span>🔗 0 связей</span>
+                            </div>
+                            <button id="editProfileBtn" class="btn btn--small btn--secondary">Редактировать</button>
+                        </div>
+
+                        <div class="sidebar-card matches-card">
+                            <h3 class="sidebar-card__title">🔗 Рекомендации</h3>
+                            <div id="matchesList" class="matches-list">
+                                <div class="match-item">
+                                    <span class="match-item__name">Александр</span>
+                                    <span class="match-item__reason">Интересуется децентрализацией</span>
+                                    <button class="btn btn--small btn--primary match-item__btn">Связаться</button>
+                                </div>
+                                <div class="match-item">
+                                    <span class="match-item__name">Мария</span>
+                                    <span class="match-item__reason">Ищет CTO для DeFi-стартапа</span>
+                                    <button class="btn btn--small btn--primary match-item__btn">Связаться</button>
+                                </div>
+                                <div class="match-item">
+                                    <span class="match-item__name">Дмитрий</span>
+                                    <span class="match-item__reason">Инвестор в Web3</span>
+                                    <button class="btn btn--small btn--primary match-item__btn">Связаться</button>
+                                </div>
+                                <p class="matches-list__note">💡 Агент анализирует диалоги и предлагает связи</p>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-card ideas-card">
+                            <h3 class="sidebar-card__title">💡 Идеи сообщества</h3>
+                            <div id="ideasList" class="ideas-list">
+                                <div class="idea-item">
+                                    <span class="idea-item__title">Децентрализованный арбитраж</span>
+                                    <span class="idea-item__author">Александр</span>
+                                    <span class="idea-item__score">🔥 89% новизна</span>
+                                </div>
+                                <div class="idea-item">
+                                    <span class="idea-item__title">ИИ-агент для поиска связей</span>
+                                    <span class="idea-item__author">Вы</span>
+                                    <span class="idea-item__score">💡 75% реализуемость</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__text">Synapse — открытая социальная сеть на основе ИИ-чатов. <a href="https://github.com/LeonidYasin/synapse">GitHub</a></p>
+        </div>
+    </footer>
+
+    <script src="frontend/js/chat.js"></script>
+    <script src="frontend/js/agent.js"></script>
+    <script src="frontend/js/matches.js"></script>
+    <script src="frontend/js/auth.js"></script>
+    <script src="frontend/js/app.js"></script>
+
+</body>
+</html>
