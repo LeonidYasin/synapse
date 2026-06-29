@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Synapse</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+      background: #0a1628;
+      color: #ffffff;
+      margin: 0;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #6c5ce7;
+      margin-bottom: 12px;
+    }
+    .status {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+    .status .online { color: #2ecc71; }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .btn-primary {
+      background: #6c5ce7;
+      color: #ffffff;
+    }
+    .btn-primary:hover { background: #5a4bd1; }
+    .btn-secondary {
+      background: #1a2a4a;
+      color: #94a3b8;
+    }
+    .btn-secondary:hover { background: #2a3a5a; color: #ffffff; }
+    .stats {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #64748b;
+      margin: 12px 0;
+    }
+    .stats span { color: #ffffff; font-weight: 600; }
+    .footer {
+      font-size: 11px;
+      color: #64748b;
+      text-align: center;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">🧠 Synapse</div>
+  <div class="status">
+    <span class="online">●</span> Активен
+  </div>
+  <div class="stats">
+    <div>Идей: <span id="popup-ideas">0</span></div>
+    <div>Связей: <span id="popup-matches">0</span></div>
+  </div>
+  <button class="btn btn-primary" id="popup-analyze">📊 Анализировать диалог</button>
+  <button class="btn btn-secondary" id="popup-sync">🔄 Обновить рекомендации</button>
+  <button class="btn btn-secondary" id="popup-open">📂 Открыть панель</button>
+  <div class="footer">v0.1.0 — открытый протокол</div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
