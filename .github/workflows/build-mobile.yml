@@ -27,13 +27,6 @@ jobs:
           flutter-version: '3.16.0'
           channel: 'stable'
 
-      - name: Generate gradle-wrapper.jar
-        run: |
-          cd mobile/android
-          curl -L -o gradle/wrapper/gradle-wrapper.jar https://github.com/gradle/gradle/raw/v7.5.0/gradle/wrapper/gradle-wrapper.jar
-          chmod +x gradlew
-        working-directory: ./mobile
-
       - name: Get dependencies
         run: flutter pub get
         working-directory: ./mobile
