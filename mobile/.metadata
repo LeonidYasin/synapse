@@ -1,0 +1,37 @@
+# This file tracks properties of this Flutter project.
+# Used by Flutter tool to assess capabilities and perform upgrades.
+#
+# This file should be version controlled.
+
+version:
+  revision: 3.16.0
+  channel: stable
+
+project_type: app
+
+migration:
+  platforms:
+    - platform: root
+      create_revision: 3.16.0
+      base_revision: 3.16.0
+    - platform: android
+      create_revision: 3.16.0
+      base_revision: 3.16.0
+    - platform: ios
+      create_revision: 3.16.0
+      base_revision: 3.16.0
+    - platform: linux
+      create_revision: 3.16.0
+      base_revision: 3.16.0
+    - platform: macos
+      create_revision: 3.16.0
+      base_revision: 3.16.0
+    - platform: web
+      create_revision: 3.16.0
+      base_revision: 3.16.0
+    - platform: windows
+      create_revision: 3.16.0
+      base_revision: 3.16.0
+
+  user_section: null
+  snapshot: null
