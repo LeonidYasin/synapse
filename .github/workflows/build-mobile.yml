@@ -27,22 +27,26 @@ jobs:
           flutter-version: '3.16.0'
           channel: 'stable'
 
+      - name: Generate gradle-wrapper.jar
+        run: |
+          cd mobile/android
+          curl -L -o gradle/wrapper/gradle-wrapper.jar https://github.com/gradle/gradle/raw/v7.5.0/gradle/wrapper/gradle-wrapper.jar
+          chmod +x gradlew
+        working-directory: ./mobile
+
       - name: Get dependencies
         run: flutter pub get
         working-directory: ./mobile
-        continue-on-error: true
 
       - name: Build Android APK
         run: flutter build apk --release
         working-directory: ./mobile
-        continue-on-error: true
 
-      - name: Upload APK (if exists)
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: synapse-android-apk
           path: mobile/build/app/outputs/flutter-apk/app-release.apk
-        continue-on-error: true
 
   build-ios:
     runs-on: macos-latest
@@ -59,16 +63,13 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
         working-directory: ./mobile
-        continue-on-error: true
 
       - name: Build iOS
         run: flutter build ios --release --no-codesign
         working-directory: ./mobile
-        continue-on-error: true
 
-      - name: Upload iOS build (if exists)
+      - name: Upload iOS build
         uses: actions/upload-artifact@v4
         with:
           name: synapse-ios-build
           path: mobile/build/ios/iphoneos/Runner.app
-        continue-on-error: true
