@@ -27,16 +27,15 @@ jobs:
         java-version: '17'
     
     - name: Install dependencies
-      run: |
-        npm install
-        npm install -g react-native-cli
+      run: npm install
     
-    - name: Create Android project structure if missing
+    - name: Generate Android project
       run: |
         if [ ! -d "android" ]; then
-          echo "Creating Android project..."
+          echo "Creating Android project using react-native init..."
           npx react-native init TempProject --skip-install
           cp -r TempProject/android ./
+          cp -r TempProject/.gitignore ./
           rm -rf TempProject
         else
           echo "Android folder exists, updating..."
