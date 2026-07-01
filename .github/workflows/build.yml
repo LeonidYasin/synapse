@@ -1,0 +1,15 @@
+name: Build Mobile Apps
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    uses: ./.github/workflows/android.yml
+
+  build-ios:
+    uses: ./.github/workflows/ios.yml
