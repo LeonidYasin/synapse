@@ -1,0 +1,79 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+    
+    - name: Install CocoaPods
+      run: sudo gem install cocoapods
+    
+    - name: Create React Native project
+      run: |
+        # Create a fresh React Native project to get iOS files
+        npx react-native init TempProject --skip-install --template react-native-template-typescript
+        
+        # Copy everything needed from temp project
+        cp -r TempProject/ios ./
+        cp TempProject/package.json ./
+        cp TempProject/app.json ./
+        cp TempProject/.gitignore ./
+        cp TempProject/tsconfig.json ./
+        cp TempProject/metro.config.js ./
+        cp TempProject/index.js ./
+        cp TempProject/App.tsx ./
+        
+        # Remove temp project
+        rm -rf TempProject
+        
+        # Show structure
+        echo "=== Project structure ==="
+        ls -la
+        echo "=== iOS folder ==="
+        ls -la ios/
+    
+    - name: Install Pods
+      run: |
+        cd ios
+        pod install --repo-update
+    
+    - name: Build iOS app
+      run: |
+        cd ios
+        xcodebuild \
+          -workspace synapse.xcworkspace \
+          -scheme synapse \
+          -configuration Debug \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          build
+    
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios-build
+        path: ios/build
