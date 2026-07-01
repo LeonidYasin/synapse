@@ -21,7 +21,9 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm install
+      run: |
+        npm install
+        npm install -g react-native-cli
     
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
@@ -31,29 +33,18 @@ jobs:
     - name: Install CocoaPods
       run: sudo gem install cocoapods
     
-    - name: Create React Native project
+    - name: Create iOS project
       run: |
-        # Create a fresh React Native project to get iOS files
-        npx react-native init TempProject --skip-install --template react-native-template-typescript
-        
-        # Copy everything needed from temp project
-        cp -r TempProject/ios ./
-        cp TempProject/package.json ./
-        cp TempProject/app.json ./
-        cp TempProject/.gitignore ./
-        cp TempProject/tsconfig.json ./
-        cp TempProject/metro.config.js ./
-        cp TempProject/index.js ./
-        cp TempProject/App.tsx ./
-        
-        # Remove temp project
-        rm -rf TempProject
-        
-        # Show structure
-        echo "=== Project structure ==="
-        ls -la
-        echo "=== iOS folder ==="
-        ls -la ios/
+        if [ ! -d "ios" ]; then
+          echo "Creating iOS project..."
+          npx react-native init TempProject --skip-install
+          cp -r TempProject/ios ./
+          cp TempProject/package.json ./
+          cp TempProject/app.json ./
+          rm -rf TempProject
+        else
+          echo "iOS folder exists"
+        fi
     
     - name: Install Pods
       run: |
