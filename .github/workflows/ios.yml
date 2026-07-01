@@ -1,0 +1,70 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Debug mode'
+        required: false
+        default: 'false'
+
+jobs:
+  build:
+    runs-on: macos-14
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+    
+    - name: Install dependencies
+      run: |
+        npm install
+        npm install -g react-native-cli
+    
+    - name: Create iOS project structure if missing
+      run: |
+        if [ ! -d "ios" ]; then
+          echo "Creating iOS project..."
+          npx react-native init TempProject --skip-install
+          cp -r TempProject/ios ./
+          rm -rf TempProject
+        else
+          echo "iOS folder exists, updating..."
+        fi
+    
+    - name: Install CocoaPods
+      run: |
+        cd ios
+        pod install --repo-update
+    
+    - name: Build iOS app
+      run: |
+        cd ios
+        xcodebuild \
+          -workspace synapse.xcworkspace \
+          -scheme synapse \
+          -configuration Debug \
+          -sdk iphonesimulator \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          build
+    
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios-build
+        path: ios/build
