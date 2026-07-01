@@ -1,0 +1,104 @@
+PODS:
+  - boost (1.76.0)
+  - DoubleConversion (1.1.6)
+  - FBLazyVector (0.72.6)
+  - FBReactNativeSpec (0.72.6)
+  - glog (0.3.5)
+  - hermes-engine (0.72.6)
+  - RCT-Folly (2021.07.22.00)
+  - RCTRequired (0.72.6)
+  - RCTTypeSafety (0.72.6)
+  - React-Core (0.72.6)
+  - React-CoreModules (0.72.6)
+  - React-RCTActionSheet (0.72.6)
+  - React-RCTAnimation (0.72.6)
+  - React-RCTBlob (0.72.6)
+  - React-RCTImage (0.72.6)
+  - React-RCTLinking (0.72.6)
+  - React-RCTNetwork (0.72.6)
+  - React-RCTSettings (0.72.6)
+  - React-RCTText (0.72.6)
+  - React-RCTVibration (0.72.6)
+  - React-runtimeexecutor (0.72.6)
+  - ReactCommon (0.72.6)
+  - Yoga (1.14.0)
+
+DEPENDENCIES:
+  - boost
+  - DoubleConversion
+  - FBLazyVector
+  - FBReactNativeSpec
+  - glog
+  - hermes-engine
+  - RCT-Folly
+  - RCTRequired
+  - RCTTypeSafety
+  - React-Core
+  - React-CoreModules
+  - React-RCTActionSheet
+  - React-RCTAnimation
+  - React-RCTBlob
+  - React-RCTImage
+  - React-RCTLinking
+  - React-RCTNetwork
+  - React-RCTSettings
+  - React-RCTText
+  - React-RCTVibration
+  - React-runtimeexecutor
+  - ReactCommon
+  - Yoga
+
+SPEC REPOS:
+  trunk:
+    - boost
+    - DoubleConversion
+    - FBLazyVector
+    - FBReactNativeSpec
+    - glog
+    - hermes-engine
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-CoreModules
+    - React-RCTActionSheet
+    - React-RCTAnimation
+    - React-RCTBlob
+    - React-RCTImage
+    - React-RCTLinking
+    - React-RCTNetwork
+    - React-RCTSettings
+    - React-RCTText
+    - React-RCTVibration
+    - React-runtimeexecutor
+    - ReactCommon
+    - Yoga
+
+SPEC CHECKSUMS:
+  boost: a7bb2735fb79c88bcdadee01b34518cfb034ce56
+  DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
+  FBLazyVector: b2f856bf252a366b4d97b1bc5a6a491db9a2d121
+  FBReactNativeSpec: e1f16fccb73b9c0cc5287c3099de9968a314f7b3
+  glog: 476ee3e89abb49e07f822b48323c51c57124b572
+  hermes-engine: a3d2076adad9a113b7d403d51227ce36df8c0c48
+  RCT-Folly: 5303e3907322b1f2f6c20ac31c8d8be4d4b3f2de
+  RCTRequired: 46c9407e19e63087a615962b1d887c55205be0ef
+  RCTTypeSafety: 4e36159c6d78f722a90307af2f7621827b6f9052
+  React-Core: 352138d7961b5794552b058f5ce132a2917acbdc
+  React-CoreModules: 5cb5d3396f42710109f53f826c24812eb3518b9a
+  React-RCTActionSheet: c31b44e815e864c1acf9a8ff00b4e9d71be55f43
+  React-RCTAnimation: 96845f2a84530e2a7dcb1353376a78c3f04a030a
+  React-RCTBlob: e561b692c2b99dc6c4142367e0e2e60070f24bfc
+  React-RCTImage: 922f4df62f0bed286a3b1b9c594a2d3a9162cc02
+  React-RCTLinking: 70f708838e56c8ec001dd5c07be3b0bbccab7719
+  React-RCTNetwork: 2df30c2a78ed0cb4f7c846d4bbf9f7f23a1f1a33
+  React-RCTSettings: 8c9610b613142eed29de9c1bd57962189e996dd3
+  React-RCTText: 1cf7ebcd3b7be8d0de03340b240ac91be73891a0
+  React-RCTVibration: 521ac1489012b3b6f3f1825a9b0b7b1cb8925683
+  React-runtimeexecutor: 494bf523e75ed694c55d879762cde4dac1561b69
+  ReactCommon: a4a5eb0b81c31a9f79cf82cc81ae9a17191c6620
+  Yoga: 13bbcd0af71bfe7f23e11ccb6e6638750c7b2aaa
+
+PODFILE CHECKSUM: d263c3c563ca916814deddb4d0b9c614b37a1726
+
+COCOAPODS: 1.15.2
