@@ -29,19 +29,6 @@ jobs:
     - name: Install dependencies
       run: npm install
     
-    - name: Create Android project
-      run: |
-        if [ ! -d "android" ]; then
-          echo "Creating Android project..."
-          npx react-native init TempProject --skip-install
-          cp -r TempProject/android ./
-          cp TempProject/package.json ./
-          cp TempProject/app.json ./
-          rm -rf TempProject
-        else
-          echo "Android folder exists"
-        fi
-    
     - name: Build Android APK
       run: |
         cd android
