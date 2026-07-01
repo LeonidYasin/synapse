@@ -29,26 +29,18 @@ jobs:
     - name: Install dependencies
       run: npm install
     
-    - name: Create React Native project
+    - name: Create Android project
       run: |
-        # Create fresh React Native project
-        npx react-native init TempProject --skip-install --template react-native-template-typescript
-        
-        # Copy everything needed
-        cp -r TempProject/android ./
-        cp TempProject/package.json ./
-        cp TempProject/app.json ./
-        cp TempProject/.gitignore ./
-        cp TempProject/tsconfig.json ./
-        cp TempProject/metro.config.js ./
-        cp TempProject/index.js ./
-        cp TempProject/App.tsx ./
-        
-        # Remove temp project
-        rm -rf TempProject
-        
-        echo "=== Android folder ==="
-        ls -la android/
+        if [ ! -d "android" ]; then
+          echo "Creating Android project..."
+          npx react-native init TempProject --skip-install
+          cp -r TempProject/android ./
+          cp TempProject/package.json ./
+          cp TempProject/app.json ./
+          rm -rf TempProject
+        else
+          echo "Android folder exists"
+        fi
     
     - name: Build Android APK
       run: |
