@@ -1,0 +1,64 @@
+name: Android Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Create React Native project
+      run: |
+        # Create fresh React Native project
+        npx react-native init TempProject --skip-install --template react-native-template-typescript
+        
+        # Copy everything needed
+        cp -r TempProject/android ./
+        cp TempProject/package.json ./
+        cp TempProject/app.json ./
+        cp TempProject/.gitignore ./
+        cp TempProject/tsconfig.json ./
+        cp TempProject/metro.config.js ./
+        cp TempProject/index.js ./
+        cp TempProject/App.tsx ./
+        
+        # Remove temp project
+        rm -rf TempProject
+        
+        echo "=== Android folder ==="
+        ls -la android/
+    
+    - name: Build Android APK
+      run: |
+        cd android
+        chmod +x gradlew
+        ./gradlew assembleDebug
+    
+    - name: Upload APK
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
