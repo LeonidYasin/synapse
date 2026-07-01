@@ -1,5 +1,8 @@
 # Resolve react_native_pods.rb with node to allow for hoisting
-require Pod::Executable.execute_command('node', ['-p', 'require.resolve("react-native/scripts/react_native_pods.rb", {paths: [process.argv[1]]})', __dir__]).strip
+require Pod::Executable.execute_command('node', ['-p', 'require.resolve(
+  "react-native/scripts/react_native_pods.rb",
+  {paths: [process.argv[1]]}
+)', __dir__]).strip
 
 platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false
@@ -7,16 +10,21 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'synapse' do
   config = use_native_modules!
 
+  # Flags change depending on the env values.
+  flags = get_default_flags()
+
   use_react_native!(
     :path => config[:reactNativePath],
-    :hermes_enabled => true,
-    :fabric_enabled => false,
+    :hermes_enabled => flags[:hermes_enabled] || true,
+    :fabric_enabled => flags[:fabric_enabled] || false,
     :flipper_configuration => FlipperConfiguration.enabled,
+    # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
   target 'synapseTests' do
     inherit! :complete
+    # Pods for testing
   end
 
   post_install do |installer|
